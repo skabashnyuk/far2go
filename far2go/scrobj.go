@@ -15,8 +15,8 @@ type ScreenObject struct {
 	flags BitFlags
 	//shadowSaveScr       *SaveScreen
 	c1, c2              Coordinate
-	ObjWidth, ObjHeight int
-	nLockCount          int
+	ObjWidth, ObjHeight uint
+	nLockCount          uint
 	pOwner              *ScreenObject
 	//SaveScr             *SaveScreen
 	CaptureMouseObject *ScreenObject
@@ -75,9 +75,93 @@ func (obj *ScreenObject) SavePrevScreen() {
 	//}
 }
 
-//void SavePrevScreen();
-//void Redraw();
-//int  IsVisible() { return Flags.Check(FSCROBJ_VISIBLE); };
-//void SetVisible(int Visible) {Flags.Change(FSCROBJ_VISIBLE,Visible);};
-//void SetRestoreScreenMode(int Mode) {Flags.Change(FSCROBJ_ENABLERESTORESCREEN,Mode);};
-//void Shadow(bool Full=false);
+func (obj *ScreenObject) Redraw() {
+	if obj.flags.Check(FSCROBJ_VISIBLE) {
+		obj.Show()
+	}
+}
+
+func (obj *ScreenObject) IsVisible() bool {
+	return obj.flags.Check(FSCROBJ_VISIBLE)
+}
+
+func (obj *ScreenObject) SetVisible(visible bool) {
+	obj.flags.Change(FSCROBJ_VISIBLE, visible)
+}
+
+func (obj *ScreenObject) SetRestoreScreenMode(mode bool) {
+	obj.flags.Change(FSCROBJ_ENABLERESTORESCREEN, mode)
+}
+
+func (obj *ScreenObject) Shadow(full bool) {
+
+	if obj.flags.Check(FSCROBJ_VISIBLE) {
+		if full {
+			//if (!ShadowSaveScr)
+			//ShadowSaveScr=new SaveScreen(0,0,ScrX,ScrY);
+			//
+			//MakeShadow(0,0,ScrX,ScrY);
+
+		} else {
+			//if (!ShadowSaveScr)
+			//ShadowSaveScr=new SaveScreen(X1,Y1,X2+2,Y2+1);
+			//
+			//MakeShadow(X1+2,Y2+1,X2+1,Y2+1);
+			//MakeShadow(X2+1,Y1+1,X2+2,Y2+1);
+
+		}
+	}
+}
+
+func (obj *ScreenObject) SetPosition(c1, c2 Coordinate) {
+	//if (SaveScr)
+	//{
+	//	delete SaveScr;
+	//	SaveScr = nullptr;
+	//}
+
+	obj.c1 = c1
+	obj.c2 = c2
+	obj.ObjWidth = c2.X - c1.X + 1
+	obj.ObjHeight = c2.Y - c1.Y + 1
+	obj.flags.Set(FSCROBJ_SETPOSITIONDONE)
+
+}
+
+func (obj *ScreenObject) SetScreenPosition() {
+	obj.flags.Clear(FSCROBJ_SETPOSITIONDONE)
+}
+
+func (obj *ScreenObject) GetPosition() (c1, c2 Coordinate) {
+	return c1, c2
+}
+
+func (obj *ScreenObject) Hide() {
+	if obj.flags.Check(FSCROBJ_VISIBLE) {
+		obj.flags.Clear(FSCROBJ_VISIBLE)
+
+		//if (ShadowSaveScr)
+		//{
+		//	delete ShadowSaveScr;
+		//	ShadowSaveScr=nullptr;
+		//}
+		//
+		//if (SaveScr)
+		//{
+		//	delete SaveScr;
+		//	SaveScr=nullptr;
+		//}
+	}
+}
+
+func (obj *ScreenObject) Show() {
+	if !obj.Locked() {
+		if obj.flags.Check(FSCROBJ_SETPOSITIONDONE) {
+			obj.SavePrevScreen()
+			obj.DisplayObject()
+		}
+	}
+}
+func (obj *ScreenObject) DisplayObject() {
+
+}
