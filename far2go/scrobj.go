@@ -165,3 +165,7 @@ func (obj *ScreenObject) Show() {
 func (obj *ScreenObject) DisplayObject() {
 
 }
+
+func (obj *ScreenObject) ProcessKey(key BaseDefKeyboard) int {
+	return 0
+}

@@ -37,12 +37,76 @@ func (obj *KeyBar) SetGroup(group int, key []string, keyCount int) {
 		obj.keyCounts[group] = keyCount
 	}
 }
+func (obj *KeyBar) Set(key []string, keyCount int) {
+	obj.SetGroup(KBL_MAIN, key, keyCount)
+}
 
-//void Set(const wchar_t * const *Key,int KeyCount)            { SetGroup(KBL_MAIN, Key, KeyCount); }
-//void SetShift(const wchar_t * const *Key,int KeyCount)       { SetGroup(KBL_SHIFT, Key, KeyCount); }
-//void SetAlt(const wchar_t * const *Key,int KeyCount)         { SetGroup(KBL_ALT, Key, KeyCount); }
-//void SetCtrl(const wchar_t * const *Key,int KeyCount)        { SetGroup(KBL_CTRL, Key, KeyCount); }
-//void SetCtrlShift(const wchar_t * const *Key,int KeyCount)   { SetGroup(KBL_CTRLSHIFT, Key, KeyCount); }
-//void SetAltShift(const wchar_t * const *Key,int KeyCount)    { SetGroup(KBL_ALTSHIFT, Key, KeyCount); }
-//void SetCtrlAlt(const wchar_t **Key,int KeyCount)            { SetGroup(KBL_CTRLALT, Key, KeyCount); }
-//void SetCtrlAltShift(const wchar_t **Key,int KeyCount)       { SetGroup(KBL_CTRLALTSHIFT, Key, KeyCount); }
+func (obj *KeyBar) SetShift(key []string, keyCount int) {
+	obj.SetGroup(KBL_SHIFT, key, keyCount)
+}
+func (obj *KeyBar) SetAlt(key []string, keyCount int) {
+	obj.SetGroup(KBL_ALT, key, keyCount)
+}
+func (obj *KeyBar) SetCtrl(key []string, keyCount int) {
+	obj.SetGroup(KBL_CTRL, key, keyCount)
+}
+func (obj *KeyBar) SetCtrlShift(key []string, keyCount int) {
+	obj.SetGroup(KBL_CTRLSHIFT, key, keyCount)
+}
+func (obj *KeyBar) SetAltShift(key []string, keyCount int) {
+	obj.SetGroup(KBL_ALTSHIFT, key, keyCount)
+}
+func (obj *KeyBar) SetCtrlAlt(key []string, keyCount int) {
+	obj.SetGroup(KBL_CTRLALT, key, keyCount)
+}
+func (obj *KeyBar) SetCtrlAltShift(key []string, keyCount int) {
+	obj.SetGroup(KBL_CTRLALTSHIFT, key, keyCount)
+}
+
+func (obj *KeyBar) RedrawIfChanged() {
+	//if (ShiftPressed!=ShiftState ||
+	//	CtrlPressed!=CtrlState ||
+	//	AltPressed!=AltState)
+	//{
+	//_SVS("KeyBar::RedrawIfChanged()");
+	obj.Redraw()
+	//	}
+}
+
+func (obj *KeyBar) ProcessKey(key BaseDefKeyboard) bool {
+	switch key {
+	case KEY_KILLFOCUS:
+	case KEY_GOTFOCUS:
+		obj.RedrawIfChanged()
+		return true
+
+	}
+	return false
+}
+
+func (obj *KeyBar) ReadRegGroup(regGroup string, language string) {
+
+}
+func (obj *KeyBar) SetRegGroup(group int) {
+
+}
+
+func (obj *KeyBar) SetAllGroup(group int, startIndex int, count int) {
+
+}
+func (obj *KeyBar) SetAllRegGroup() {
+
+}
+func (obj *KeyBar) ClearGroup(group int) {
+
+}
+func (obj *KeyBar) SetDisableMask(mask int) {
+
+}
+func (obj *KeyBar) Change(newstr []string, pos int) {
+	obj.SetGroup(KBL_MAIN, newstr, pos)
+
+}
+func (obj *KeyBar) ResizeConsole() {
+
+}
