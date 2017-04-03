@@ -19,7 +19,7 @@ type KeyBar struct {
 	owner                           *ScreenObject
 	keyTitles                       [KBL_GROUP_COUNT][]string
 	keyCounts                       [KBL_GROUP_COUNT]int
-	altState, ctrlState, shiftState int
+	altState, ctrlState, shiftState bool
 	disableMask                     int
 	regKeyTitles                    [KBL_GROUP_COUNT]string
 	regReaded                       bool
@@ -64,13 +64,11 @@ func (obj *KeyBar) SetCtrlAltShift(key []string, keyCount int) {
 }
 
 func (obj *KeyBar) RedrawIfChanged() {
-	//if (ShiftPressed!=ShiftState ||
-	//	CtrlPressed!=CtrlState ||
-	//	AltPressed!=AltState)
-	//{
-	//_SVS("KeyBar::RedrawIfChanged()");
-	obj.Redraw()
-	//	}
+	if ShiftPressed != obj.shiftState ||
+		CtrlPressed != obj.ctrlState ||
+		AltPressed != obj.altState {
+		obj.Redraw()
+	}
 }
 
 func (obj *KeyBar) ProcessKey(key BaseDefKeyboard) bool {
