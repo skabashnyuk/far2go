@@ -78,6 +78,15 @@ type InputRecord struct {
 	Event
 }
 
+type CharInfo struct {
+	Char       rune
+	Attributes uint
+}
+type ConsoleCursorInfo struct {
+	Size uint
+	Visible bool
+}
+
 type UIElement interface {
 	ProcessKey(key int) (int)
 	ProcessMouse(event *MouseEventRecord) (int)
