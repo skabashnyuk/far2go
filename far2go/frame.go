@@ -14,6 +14,7 @@ const (
 )
 
 type Frame struct {
+	ScreenObject
 	frameToBack          *Frame
 	prevModal, nextModal *Frame
 	dynamicallyBorn      uint
