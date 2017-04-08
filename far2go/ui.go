@@ -49,8 +49,8 @@ const (
 type KeyEventRecord struct {
 	KeyDown         bool
 	RepeatCount     uint
-	VirtualKeyCode  VirtualKey
-	VirtualScanCode VirtualKey
+	VirtualKeyCode  KeyCode
+	VirtualScanCode KeyCode
 	Char            rune
 	ControlKeyState ControlKeyState
 }
