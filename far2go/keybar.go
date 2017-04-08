@@ -71,7 +71,7 @@ func (obj *KeyBar) RedrawIfChanged() {
 	}
 }
 
-func (obj *KeyBar) ProcessKey(key BaseDefKeyboard) bool {
+func (obj *KeyBar) ProcessKey(key KeyCode) bool {
 	switch key {
 	case KEY_KILLFOCUS:
 	case KEY_GOTFOCUS:
