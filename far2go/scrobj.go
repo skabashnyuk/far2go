@@ -166,6 +166,21 @@ func (obj *ScreenObject) DisplayObject() {
 
 }
 
-func (obj *ScreenObject) ProcessKey(key BaseDefKeyboard) int {
+func (obj *ScreenObject) ProcessKey(key KeyCode) int {
+	return 0
+}
+
+func (obj *ScreenObject) ShowConsoleTitle() {
+
+}
+func (obj *ScreenObject) ResizeConsole() {
+
+}
+
+func (obj *ScreenObject) ProcessMouse(MouseEvent *MenuEventRecord) (int) {
+	return 0
+}
+
+func (obj *ScreenObject) VMProcess(OpCode uint, vparam uint, iParam uint) (int) {
 	return 0
 }
