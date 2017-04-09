@@ -1,10 +1,11 @@
 package far2go
 
 type ControlObject struct {
-	fPanels     *FilePanels
-	CmdLine     *CommandLine
-	CmdHistory  *History
-	ViewHistory *FolderHistory
+	fPanels       *FilePanels
+	CmdLine       *CommandLine
+	CmdHistory    *History
+	ViewHistory   *History
+	FolderHistory *History
 
 	MainKeyBar     *KeyBar
 	TopMenuBar     *MenuBar
