@@ -8,6 +8,7 @@ type PushPopRecord struct {
 
 type CommandLine struct {
 	ScreenObject
+	CmdStr            EditControl
 	BackgroundScreen  *SaveScreen
 	CurDir            string
 	LastCmdDir        string
@@ -24,14 +25,29 @@ func (obj *CommandLine) ProcessMouse(MouseEvent *MouseEventRecord) (bool) {
 	return false
 }
 
+func (obj *CommandLine) VMProcess(OpCode uint, vparam uint, iParam uint) (int) {
+	return 0
+}
 
-//virtual int64_t VMProcess(int OpCode,void *vParam=nullptr,int64_t iParam=0);
-//
-//virtual void ResizeConsole();
-//
-//std::string GetConsoleLog();
-//int GetCurDir(FARString &strCurDir);
-//BOOL SetCurDir(const wchar_t *CurDir);
+func (obj *CommandLine) ResizeConsole() {
+}
+func (obj *CommandLine) GetConsoleLog() (string) {
+	return nil
+}
+
+func (obj *CommandLine) GetCurDir() (string) {
+	return obj.CurDir
+}
+
+func (obj *CommandLine) SetCurDir(CurDir string) {
+	obj.CurDir = CurDir
+}
+
+func (obj *CommandLine) GetString() (string) {
+	return obj.CmdStr.GetString()
+}
+
+
 //
 //void GetString(FARString &strStr) { CmdStr.GetString(strStr); };
 //int GetLength() { return CmdStr.GetLength(); };
