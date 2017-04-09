@@ -71,3 +71,31 @@ type FileFilterParams struct {
 	attr      AttrType
 	highlight HighlightType
 }
+
+//void SetTitle(const wchar_t *Title);
+//void SetMask(bool Used, const wchar_t *Mask);
+//void SetDate(bool Used, DWORD DateType, FILETIME DateAfter, FILETIME DateBefore, bool bRelative);
+//void SetSize(bool Used, const wchar_t *SizeAbove, const wchar_t *SizeBelow);
+//void SetAttr(bool Used, DWORD AttrSet, DWORD AttrClear);
+//void SetColors(HighlightDataColor *Colors);
+//void SetSortGroup(int SortGroup) { FHighlight.SortGroup = SortGroup; }
+//void SetContinueProcessing(bool bContinueProcessing) { FHighlight.bContinueProcessing = bContinueProcessing; }
+//void SetFlags(enumFileFilterFlagsType FType, DWORD Flags) { FFlags[FType] = Flags; }
+//void ClearAllFlags() { memset(FFlags,0,sizeof(FFlags)); }
+//
+//const wchar_t *GetTitle() const;
+//bool  GetMask(const wchar_t **Mask) const;
+//bool  GetDate(DWORD *DateType, FILETIME *DateAfter, FILETIME *DateBefore, bool *bRelative) const;
+//bool  GetSize(const wchar_t **SizeAbove, const wchar_t **SizeBelow) const;
+//bool  GetAttr(DWORD *AttrSet, DWORD *AttrClear) const;
+//void  GetColors(HighlightDataColor *Colors) const;
+//int   GetMarkChar() const;
+//int   GetSortGroup() const { return FHighlight.SortGroup; }
+//bool  GetContinueProcessing() const { return FHighlight.bContinueProcessing; }
+//DWORD GetFlags(enumFileFilterFlagsType FType) const { return FFlags[FType]; }
+
+//bool FileInFilter(const FAR_FIND_DATA_EX& fde, uint64_t CurrentTime);
+//bool FileInFilter(const FAR_FIND_DATA& fd, uint64_t CurrentTime);
+//bool FileFilterConfig(FileFilterParams *FF, bool ColorConfig=false);
+//void MenuString(FARString &strDest, FileFilterParams *FF, bool bHighlightType=false, int Hotkey=0, bool bPanelType=false, const wchar_t *FMask=nullptr, const wchar_t *Title=nullptr);
+
