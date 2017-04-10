@@ -85,6 +85,10 @@ type KeyMacro struct {
 	//LockScr            *LockScreen
 }
 
+func (obj *KeyMacro) LoadMacros() {
+
+}
+
 //
 //int ReadVarsConst(int ReadMode, FARString &strBuffer);
 //int ReadMacroFunction(int ReadMode, FARString &strBuffer);
