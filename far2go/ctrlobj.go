@@ -1,5 +1,9 @@
 package far2go
 
+import (
+	"github.com/sirupsen/logrus"
+)
+
 type ControlObject struct {
 	fPanels       *FilePanels
 	CmdLine       *CommandLine
@@ -12,12 +16,35 @@ type ControlObject struct {
 	HiFiles        *HighlightFiles
 	ViewerPosCache *FilePositionCache
 	EditorPosCache *FilePositionCache
-	Macro          KeyMacro
+	Macro          *KeyMacro
 	//Plugins        PluginManager
 }
 
 func NewControlObject() (*ControlObject) {
-	return nil
+	controlObject := &ControlObject{
+		fPanels: new(FilePanels),
+		CmdLine: new(CommandLine),
+		CmdHistory: NewHistory(HISTORYTYPE_CMD,
+			512,
+			"SavedHistory",
+			true,
+			false),
+		FolderHistory: NewHistory(HISTORYTYPE_FOLDER,
+			512,
+			"SavedFolderHistory",
+			true,
+			true),
+		ViewHistory: NewHistory(HISTORYTYPE_VIEW,
+			512,
+			"SavedFolderHistory",
+			true,
+			true),
+
+
+	}
+	//controlObject.
+	logrus.Debugf("[%p] ControlObject::ControlObject()", controlObject)
+	return controlObject
 }
 
 func (obj *ControlObject) Init() {

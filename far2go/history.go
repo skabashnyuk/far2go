@@ -27,9 +27,22 @@ type History struct {
 	RemoveDups                           int
 	TypeHistory                          HistoryType
 	HistoryCount                         uint
-	EnableSave                           int
-	HistoryList                          list.List
-	CurrentItem                          HistoryRecord
+	EnableSave                           bool
+	HistoryList                          *list.List
+	CurrentItem                          *HistoryRecord
+}
+
+func NewHistory(TypeHistory HistoryType, HistoryCount uint, RegKey string, EnableSave bool, SaveType bool) *History {
+	return &History{RegKey,
+			true,
+			false,
+			SaveType,
+			1,
+			TypeHistory,
+			HistoryCount,
+			EnableSave,
+			list.New(),
+			nil}
 }
 
 //void AddToHistory(const wchar_t *Str, int Type=0, const wchar_t *Prefix=nullptr, bool SaveForbid=false);
