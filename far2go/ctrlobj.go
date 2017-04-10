@@ -13,7 +13,11 @@ type ControlObject struct {
 	ViewerPosCache *FilePositionCache
 	EditorPosCache *FilePositionCache
 	Macro          KeyMacro
-	Plugins        PluginManager
+	//Plugins        PluginManager
+}
+
+func NewControlObject() (*ControlObject) {
+	return nil
 }
 
 func (obj *ControlObject) Init() {
@@ -21,7 +25,7 @@ func (obj *ControlObject) Init() {
 }
 
 func (obj *ControlObject) Cp() (*FilePanels) {
-
+	return nil
 }
 
 func (obj *ControlObject) CreateFilePanels() {

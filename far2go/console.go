@@ -39,7 +39,7 @@ func IsIconic() bool {
 	return false
 }
 
-func GetSize() (Coordinate, error) {
+func GetSize() (*Coordinate, error) {
 	return nil, errors.New("NotImplemented")
 }
 
@@ -51,11 +51,11 @@ func SetWindowRect(consoleWindow SmallRect) error {
 	return errors.New("NotImplemented")
 }
 
-func GetWindowRect() (SmallRect, error) {
+func GetWindowRect() (*SmallRect, error) {
 	return nil, errors.New("NotImplemented")
 }
 
-func GetWorkingRect() (SmallRect, error) {
+func GetWorkingRect() (*SmallRect, error) {
 	return nil, errors.New("NotImplemented")
 }
 
@@ -64,13 +64,13 @@ func SetTitle(strTitle string) error {
 }
 
 func GetTitle() (string, error) {
-	return nil, errors.New("NotImplemented")
+	return "", errors.New("NotImplemented")
 }
 func GetKeyboardLayoutName() (string, error) {
-	return nil, errors.New("NotImplemented")
+	return "", errors.New("NotImplemented")
 }
 
-func GetMode(handle *os.File) (ConsoleMode, error) {
+func GetMode(handle *os.File) (*ConsoleMode, error) {
 	return nil, errors.New("NotImplemented")
 }
 
@@ -103,14 +103,14 @@ func Write(buffer string, numberOfCharsToWrite bool) (error) {
 }
 
 func GetTextAttributes() (uint, error) {
-	return nil, errors.New("NotImplemented")
+	return 0, errors.New("NotImplemented")
 }
 
 func SetTextAttributes(Attributes uint) (error) {
 	return errors.New("NotImplemented")
 }
 
-func GetCursorInfo() (ConsoleCursorInfo, error) {
+func GetCursorInfo() (*ConsoleCursorInfo, error) {
 	return nil, errors.New("NotImplemented")
 }
 
@@ -118,7 +118,7 @@ func SetCursorInfo(consoleCursorInfo *ConsoleCursorInfo) (error) {
 	return errors.New("NotImplemented")
 }
 
-func GetCursorPosition() (Coordinate, error) {
+func GetCursorPosition() (*Coordinate, error) {
 	return nil, errors.New("NotImplemented")
 }
 
@@ -131,10 +131,10 @@ func FlushInputBuffer() (error) {
 }
 
 func GetNumberOfInputEvents() (uint, error) {
-	return nil, errors.New("NotImplemented")
+	return 0, errors.New("NotImplemented")
 }
 
-func GetLargestWindowSize() Coordinate {
+func GetLargestWindowSize() *Coordinate {
 	return nil
 }
 

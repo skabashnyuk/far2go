@@ -1,32 +1,22 @@
 package main
 
-
 import (
-	"github.com/andlabs/ui"
+	"github.com/skabashnyuk/far2go/far2go"
+	log "github.com/Sirupsen/logrus"
+
 )
 
 func main() {
-	err := ui.Main(func() {
-		name := ui.NewEntry()
-		button := ui.NewButton("Greet")
-		greeting := ui.NewLabel("")
-		box := ui.NewVerticalBox()
-		box.Append(ui.NewLabel("Enter your name:"), false)
-		box.Append(name, true)
-		box.Append(button, true)
-		box.Append(greeting, true)
-		window := ui.NewWindow("Hello", 200, 100, false)
-		window.SetChild(box)
-		button.OnClicked(func(*ui.Button) {
-			greeting.SetText("Hello, " + name.Text() + "!")
-		})
-		window.OnClosing(func(*ui.Window) bool {
-			ui.Quit()
-			return true
-		})
-		window.Show()
-	})
-	if err != nil {
-		panic(err)
-	}
+	log.SetLevel(log.DebugLevel)
+	log.Debug("Useful debugging information.")
+	log.Info("Something noteworthy happened!")
+	log.Warn("You should probably take a look at this.")
+	log.Error("Something failed but I'm not quitting.")
+	// Calls os.Exit(1) after logging
+	log.Fatal("Bye.")
+	// Calls panic() after logging
+	log.Panic("I'm bailing.")
+
+	CtrlObj := far2go.NewControlObject()
+	CtrlObj.CreateFilePanels()
 }

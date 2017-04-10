@@ -32,7 +32,7 @@ func (obj *CommandLine) VMProcess(OpCode uint, vparam uint, iParam uint) (int) {
 func (obj *CommandLine) ResizeConsole() {
 }
 func (obj *CommandLine) GetConsoleLog() (string) {
-	return nil
+	return ""
 }
 
 func (obj *CommandLine) GetCurDir() (string) {
