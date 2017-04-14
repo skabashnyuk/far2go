@@ -1,6 +1,54 @@
 package far2go
 
 const (
+	WordDiv0 = "~!%^&*()+|{}:\"<>?`-=\\[];',./"
+
+	WordDivForXlat0 = " \t!#$%^&*()+|=\\/@?"
+
+	//FARString strKeyNameConsoleDetachKey;
+	szCtrlShiftX   = "CtrlShiftX"
+	szCtrlDot      = "Ctrl."
+	szCtrlShiftDot = "CtrlShift."
+
+	// KeyName
+	NKeyColors              = "Colors"
+	NKeyScreen              = "Screen"
+	NKeyCmdline             = "Cmdline"
+	NKeyInterface           = "Interface"
+	NKeyInterfaceCompletion = "Interface/Completion"
+	NKeyViewer              = "Viewer"
+	NKeyDialog              = "Dialog"
+	NKeyEditor              = "Editor"
+	NKeyXLat                = "XLat"
+	NKeySystem              = "System"
+	NKeySystemExecutor      = "System/Executor"
+	NKeySystemNowell        = "System/Nowell"
+	NKeyHelp                = "Help"
+	NKeyLanguage            = "Language"
+	NKeyConfirmations       = "Confirmations"
+	NKeyPluginConfirmations = "PluginConfirmations"
+	NKeyPanel               = "Panel"
+	NKeyPanelLeft           = "Panel/Left"
+	NKeyPanelRight          = "Panel/Right"
+	NKeyPanelLayout         = "Panel/Layout"
+	NKeyPanelTree           = "Panel/Tree"
+	NKeyPanelInfo           = "Panel/Info"
+	NKeyLayout              = "Layout"
+	NKeyDescriptions        = "Descriptions"
+	NKeyKeyMacros           = "KeyMacros"
+	NKeyPolicies            = "Policies"
+	NKeyFileFilter          = "OperationsFilter"
+	NKeySavedHistory        = "SavedHistory"
+	NKeySavedViewHistory    = "SavedViewHistory"
+	NKeySavedFolderHistory  = "SavedFolderHistory"
+	NKeySavedDialogHistory  = "SavedDialogHistory"
+	NKeyCodePages           = "CodePages"
+	NParamHistoryCount      = "HistoryCount"
+	NKeyVMenu               = "VMenu"
+
+	constBatchExt = ".BAT;.CMD;"
+)
+const (
 	CASR_PANEL  = 0x0001
 	CASR_EDITOR = 0x0002
 	CASR_VIEWER = 0x0004
@@ -100,8 +148,8 @@ type DizOptions struct {
 type CodeXLAT struct {
 	Flags             uint64
 	strWordDivForXlat string
-	Table             [2]string
-	Rules             [3]string
+	Table             []string
+	Rules             []string
 }
 
 type EditorOptions struct {
@@ -191,7 +239,7 @@ type NowellOptions struct {
 type ScreenSizes struct {
 	DeltaXY        Coordinate
 	WScreenSizeSet int
-	WScreenSize    [4]Coordinate
+	WScreenSize    []Coordinate
 }
 
 type LoadPluginsOptions struct {
@@ -216,9 +264,9 @@ type FindFileOptions struct {
 	strSearchOutFormat      string
 	strSearchOutFormatWidth string
 	OutColumnCount          int
-	OutColumnTypes          [20] uint
-	OutColumnWidths         [20]int
-	OutColumnWidthType      [20]int
+	OutColumnTypes          []uint
+	OutColumnWidths         []int
+	OutColumnWidthType      []int
 }
 
 type InfoPanelOptions struct {
@@ -370,7 +418,7 @@ type Options struct {
 	ExceptCallDebugger int
 
 	ShiftsKeyRules int
-	CursorSize     [4]int
+	CursorSize     []int
 
 	XLat             CodeXLAT
 	ConsoleDetachKey int
