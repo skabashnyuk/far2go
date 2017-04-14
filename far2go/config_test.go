@@ -21,3 +21,14 @@ func TestConfig(t *testing.T) {
 	//	t.Fatalf("unable to decode into struct, %v", err)
 	//}
 }
+
+func TestReadConfig(t *testing.T) {
+	ReadConfig()
+
+}
+
+func TestSaveConfig(t *testing.T) {
+	//ReadConfig()
+	SaveConfig()
+}
+

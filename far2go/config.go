@@ -1,5 +1,16 @@
 package far2go
 
+import (
+	"github.com/spf13/viper"
+	"fmt"
+	"os"
+	"log"
+	"encoding/json"
+	"io/ioutil"
+	"github.com/mitchellh/go-homedir"
+	"path/filepath"
+)
+
 const (
 	WordDiv0 = "~!%^&*()+|{}:\"<>?`-=\\[];',./"
 
@@ -476,4 +487,54 @@ type Options struct {
 	IsUserAdmin    bool
 	strTitleAddons string
 	WindowMode     bool
+}
+
+var Opt Options
+
+func ReadConfig() {
+	viper.SetConfigType("json")
+	viper.SetConfigName("far2go")        // name of config file (without extension)
+	viper.AddConfigPath("$HOME/.far2go") // call multiple times to add many search paths
+	//	viper.AddConfigPath(".")             // optionally look for config in the working directory
+	err := viper.ReadInConfig() // Find and read the config file
+	if err != nil { // Handle errors reading the config file
+		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+	}
+	Opt = Options{}
+	// unmarshal config
+	err = viper.Unmarshal(&Opt)
+	if err != nil { // Handle errors reading the config file
+		panic(fmt.Errorf("Fatal to Unmarshal: %s \n", err))
+	}
+
+}
+
+func SaveConfig() {
+
+	hdir, err := homedir.Dir()
+	if err != nil {
+		log.Fatalf("err: %s", err)
+	}
+
+	var dir = filepath.Join(hdir, ".far2go")
+	if _, err := os.Stat(dir); err != nil {
+		if os.IsNotExist(err) {
+			err = os.Mkdir(dir, 0755)
+			if err != nil {
+				log.Println(err)
+			}
+		} else {
+			log.Println(err)
+		}
+	}
+
+	path := filepath.Join(dir, "far2go.json")
+	os.Remove(path)
+	b, err := json.MarshalIndent(Opt, "", "    ")
+	if err != nil {
+		log.Println(err)
+	}
+
+	ioutil.WriteFile(path, b, 0644)
+
 }
