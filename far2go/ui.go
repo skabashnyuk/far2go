@@ -1,7 +1,8 @@
 package far2go
 
 type Coordinate struct {
-	X, Y uint
+	X uint
+	Y uint
 }
 
 type SmallRect struct {
@@ -83,7 +84,7 @@ type CharInfo struct {
 	Attributes uint
 }
 type ConsoleCursorInfo struct {
-	Size uint
+	Size    uint
 	Visible bool
 }
 
