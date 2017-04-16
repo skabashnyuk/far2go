@@ -66,6 +66,7 @@ const (
 	CASR_HELP   = 0x0008
 	CASR_DIALOG = 0x0010
 )
+const CP_AUTODETECT = -1
 
 type ExcludeCmdHistoryType uint
 
@@ -149,7 +150,7 @@ type Confirmation struct {
 type DizOptions struct {
 	strListNames  string
 	ROUpdate      int
-	UpdateMode    int
+	UpdateMode    DizUpdateType
 	SetHidden     int
 	StartPos      int
 	AnsiByDefault int
@@ -289,7 +290,7 @@ type TreeOptions struct {
 	NetDisk          int
 	NetPath          int
 	RemovableDisk    int
-	MreeCount        int
+	MinTreeCount     int
 	AutoChangeFolder int
 	TreeFileAttr     int
 };
@@ -553,7 +554,14 @@ func SaveConfig() {
 
 func DefaultOptions() *Options {
 	var defaultOptions = Options{}
+
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//{1, REG_BINARY, NKeyColors, L"CurrentPalette",(char*)Palette,(DWORD)SizeArrayPalette,(wchar_t*)DefaultPalette},
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//
 	//{1, REG_DWORD,  NKeyScreen, L"Clock", &Opt.Clock, 1, 0},
 	defaultOptions.Clock = 1
@@ -855,48 +863,98 @@ func DefaultOptions() *Options {
 	}
 
 	//{1, REG_DWORD,  NKeySystem,L"FindCodePage",&Opt.FindCodePage, CP_AUTODETECT, 0},
+	defaultOptions.FindCodePage = CP_AUTODETECT
 	//{0, REG_DWORD,  NKeySystem,L"SubstPluginPrefix",&Opt.SubstPluginPrefix, 0, 0},
+	defaultOptions.SubstPluginPrefix = 0
 	//{0, REG_DWORD,  NKeySystem,L"CmdHistoryRule",&Opt.CmdHistoryRule,0, 0},
+	defaultOptions.CmdHistoryRule = 0
 	//{0, REG_DWORD,  NKeySystem,L"SetAttrFolderRules",&Opt.SetAttrFolderRules,1, 0},
+	defaultOptions.SetAttrFolderRules = 1
 	//{0, REG_DWORD,  NKeySystem,L"MaxPositionCache",&Opt.MaxPositionCache,MAX_POSITIONS, 0},
+	defaultOptions.MaxPositionCache = MAX_POSITIONS
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//{0, REG_SZ,     NKeySystem,L"ConsoleDetachKey", &strKeyNameConsoleDetachKey, 0, L"CtrlAltTab"},
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 	//{0, REG_DWORD,  NKeySystem,L"SilentLoadPlugin",  &Opt.LoadPlug.SilentLoadPlugin, 0, 0},
 	//{1, REG_DWORD,  NKeySystem,L"OEMPluginsSupport",  &Opt.LoadPlug.OEMPluginsSupport, 1, 0},
 	//{1, REG_DWORD,  NKeySystem,L"ScanSymlinks",  &Opt.LoadPlug.ScanSymlinks, 1, 0},
+	defaultOptions.LoadPlug = LoadPluginsOptions{
+		SilentLoadPlugin:  0,
+		OEMPluginsSupport: 1,
+		ScanSymlinks:      1,
+	}
+
 	//{1, REG_DWORD,  NKeySystem,L"MultiMakeDir",&Opt.MultiMakeDir,0, 0},
+	defaultOptions.MultiMakeDir = 0
 	//{0, REG_DWORD,  NKeySystem,L"MsWheelDelta", &Opt.MsWheelDelta, 1, 0},
+	defaultOptions.MsWheelDelta = 1
 	//{0, REG_DWORD,  NKeySystem,L"MsWheelDeltaView", &Opt.MsWheelDeltaView, 1, 0},
+	defaultOptions.MsWheelDeltaView = 1
 	//{0, REG_DWORD,  NKeySystem,L"MsWheelDeltaEdit", &Opt.MsWheelDeltaEdit, 1, 0},
+	defaultOptions.MsWheelDeltaEdit = 1
 	//{0, REG_DWORD,  NKeySystem,L"MsWheelDeltaHelp", &Opt.MsWheelDeltaHelp, 1, 0},
+	defaultOptions.MsWheelDeltaHelp = 1
 	//{0, REG_DWORD,  NKeySystem,L"MsHWheelDelta", &Opt.MsHWheelDelta, 1, 0},
+	defaultOptions.MsHWheelDelta = 1
 	//{0, REG_DWORD,  NKeySystem,L"MsHWheelDeltaView", &Opt.MsHWheelDeltaView, 1, 0},
+	defaultOptions.MsHWheelDeltaView = 1
 	//{0, REG_DWORD,  NKeySystem,L"MsHWheelDeltaEdit", &Opt.MsHWheelDeltaEdit, 1, 0},
+	defaultOptions.MsHWheelDeltaEdit = 1
 	//{0, REG_DWORD,  NKeySystem,L"SubstNameRule", &Opt.SubstNameRule, 2, 0},
+	defaultOptions.SubstNameRule = 2
 	//{0, REG_DWORD,  NKeySystem,L"ShowCheckingFile", &Opt.ShowCheckingFile, 0, 0},
+	defaultOptions.ShowCheckingFile = 0
 	//{0, REG_DWORD,  NKeySystem,L"DelThreadPriority", &Opt.DelThreadPriority, 0, 0},
+	defaultOptions.DelThreadPriority = 0
 	//{0, REG_SZ,     NKeySystem,L"QuotedSymbols",&Opt.strQuotedSymbols, 0, L" $&()[]{};|*?!'`\"\\\xA0"}, //xA0 => 160 =>oem(0xFF)
+	defaultOptions.strQuotedSymbols = " $&()[]{};|*?!'`\"\\\xA0"
 	//{0, REG_DWORD,  NKeySystem,L"QuotedName",&Opt.QuotedName,0xFFFFFFFFU, 0},
+	defaultOptions.QuotedName = 0xFFFFFFFF
 	////{0, REG_DWORD,  NKeySystem,L"CPAJHefuayor",&Opt.strCPAJHefuayor,0, 0},
 	//{0, REG_DWORD,  NKeySystem,L"CloseConsoleRule",&Opt.CloseConsoleRule,1, 0},
+	defaultOptions.CloseConsoleRule = 1
 	//{0, REG_DWORD,  NKeySystem,L"PluginMaxReadData",&Opt.PluginMaxReadData,0x20000, 0},
+	defaultOptions.PluginMaxReadData = 0x20000
 	//{1, REG_DWORD,  NKeySystem,L"CloseCDGate",&Opt.CloseCDGate,1, 0},
+	defaultOptions.CloseCDGate = 1
 	//{1, REG_DWORD,  NKeySystem,L"UpdateEnvironment",&Opt.UpdateEnvironment,0,0},
+	defaultOptions.UpdateEnvironment = 0
 	//{0, REG_DWORD,  NKeySystem,L"UseNumPad",&Opt.UseNumPad,1, 0},
+	defaultOptions.UseNumPad = 1
 	//{0, REG_DWORD,  NKeySystem,L"CASRule",&Opt.CASRule,0xFFFFFFFFU, 0},
+	defaultOptions.CASRule = 0xFFFFFFFF
 	//{0, REG_DWORD,  NKeySystem,L"AllCtrlAltShiftRule",&Opt.AllCtrlAltShiftRule,0x0000FFFF, 0},
+	defaultOptions.AllCtrlAltShiftRulev = 0x0000FFFF
 	//{1, REG_DWORD,  NKeySystem,L"ScanJunction",&Opt.ScanJunction,1, 0},
+	defaultOptions.ScanJunction = 1
 	//{1, REG_DWORD,  NKeySystem,L"OnlyFilesSize",&Opt.OnlyFilesSize, 0, 0},
+	defaultOptions.OnlyFilesSize = 0
 	//{0, REG_DWORD,  NKeySystem,L"UsePrintManager",&Opt.UsePrintManager,1, 0},
+	defaultOptions.UsePrintManager = 1
 	//{0, REG_DWORD,  NKeySystem,L"WindowMode",&Opt.WindowMode, 0, 0},
+	defaultOptions.WindowMode = false
 	//
 	//{0, REG_DWORD,  NKeySystemNowell,L"MoveRO",&Opt.Nowell.MoveRO,1, 0},
+	defaultOptions.Nowell = NowellOptions{MoveRO: 1}
 	//
 	//{0, REG_DWORD,  NKeySystemExecutor,L"RestoreCP",&Opt.RestoreCPAfterExecute,1, 0},
+	defaultOptions.RestoreCPAfterExecute = 1
+
 	//{0, REG_DWORD,  NKeySystemExecutor,L"UseAppPath",&Opt.ExecuteUseAppPath,1, 0},
+	defaultOptions.ExecuteUseAppPath = 1
 	//{0, REG_DWORD,  NKeySystemExecutor,L"ShowErrorMessage",&Opt.ExecuteShowErrorMessage,1, 0},
+	defaultOptions.ExecuteShowErrorMessage = 1
 	//{0, REG_SZ,     NKeySystemExecutor,L"BatchType",&Opt.strExecuteBatchType,0,constBatchExt},
+	defaultOptions.strExternalViewer = constBatchExt
 	//{0, REG_DWORD,  NKeySystemExecutor,L"FullTitle",&Opt.ExecuteFullTitle,0, 0},
+	defaultOptions.ExecuteFullTitle = 0
 	//{0, REG_DWORD,  NKeySystemExecutor,L"SilentExternal",&Opt.ExecuteSilentExternal,0, 0},
+	defaultOptions.ExecuteSilentExternal = 0
 	//
 	//{0, REG_DWORD,  NKeyPanelTree,L"MinTreeCount",&Opt.Tree.MinTreeCount, 4, 0},
 	//{0, REG_DWORD,  NKeyPanelTree,L"TreeFileAttr",&Opt.Tree.TreeFileAttr, FILE_ATTRIBUTE_HIDDEN, 0},
@@ -905,10 +963,22 @@ func DefaultOptions() *Options {
 	//{0, REG_DWORD,  NKeyPanelTree,L"RemovableDisk",&Opt.Tree.RemovableDisk, 2, 0},
 	//{0, REG_DWORD,  NKeyPanelTree,L"NetPath",&Opt.Tree.NetPath, 2, 0},
 	//{1, REG_DWORD,  NKeyPanelTree,L"AutoChangeFolder",&Opt.Tree.AutoChangeFolder,0, 0}, // ???
+	defaultOptions.Tree = TreeOptions{
+		MinTreeCount:     4,
+		TreeFileAttr:     FILE_ATTRIBUTE_HIDDEN,
+		LocalDisk:        2,
+		NetDisk:          2,
+		RemovableDisk:    2,
+		NetPath:          2,
+		AutoChangeFolder: 0,
+	}
+
 	//
 	//{0, REG_DWORD,  NKeyHelp,L"ActivateURL",&Opt.HelpURLRules,1, 0},
+	defaultOptions.HelpURLRules = 1
 	//
 	//{1, REG_SZ,     NKeyLanguage,L"Help",&Opt.strHelpLanguage, 0, L"English"},
+	defaultOptions.strHelpLanguage = "English"
 	//
 	//{1, REG_DWORD,  NKeyConfirmations,L"Copy",&Opt.Confirm.Copy,1, 0},
 	//{1, REG_DWORD,  NKeyConfirmations,L"Move",&Opt.Confirm.Move,1, 0},
@@ -925,24 +995,60 @@ func DefaultOptions() *Options {
 	//{1, REG_DWORD,  NKeyConfirmations,L"HistoryClear",&Opt.Confirm.HistoryClear,1, 0},
 	//{1, REG_DWORD,  NKeyConfirmations,L"Exit",&Opt.Confirm.Exit,1, 0},
 	//{0, REG_DWORD,  NKeyConfirmations,L"EscTwiceToInterrupt",&Opt.Confirm.EscTwiceToInterrupt,0, 0},
+	defaultOptions.Confirm = Confirmation{
+		Copy:                1,
+		Move:                1,
+		RO:                  1,
+		Drag:                1,
+		Delete:              1,
+		DeleteFolder:        1,
+		Esc:                 1,
+		RemoveConnection:    1,
+		RemoveSUBST:         1,
+		DetachVHD:           1,
+		RemoveHotPlug:       1,
+		AllowReedit:         1,
+		HistoryClear:        1,
+		Exit:                1,
+		EscTwiceToInterrupt: 0,
+	}
+
 	//
 	//{1, REG_DWORD,  NKeyPluginConfirmations, L"OpenFilePlugin", &Opt.PluginConfirm.OpenFilePlugin, 0, 0},
 	//{1, REG_DWORD,  NKeyPluginConfirmations, L"StandardAssociation", &Opt.PluginConfirm.StandardAssociation, 0, 0},
 	//{1, REG_DWORD,  NKeyPluginConfirmations, L"EvenIfOnlyOnePlugin", &Opt.PluginConfirm.EvenIfOnlyOnePlugin, 0, 0},
 	//{1, REG_DWORD,  NKeyPluginConfirmations, L"SetFindList", &Opt.PluginConfirm.SetFindList, 0, 0},
 	//{1, REG_DWORD,  NKeyPluginConfirmations, L"Prefix", &Opt.PluginConfirm.Prefix, 0, 0},
+	defaultOptions.PluginConfirm = PluginConfirmation{
+		OpenFilePlugin:      0,
+		StandardAssociation: 0,
+		EvenIfOnlyOnePlugin: 0,
+		SetFindList:         0,
+		Prefix:              0,
+	}
 	//
 	//{0, REG_DWORD,  NKeyPanel,L"ShellRightLeftArrowsRule",&Opt.ShellRightLeftArrowsRule,0, 0},
+	defaultOptions.ShellRightLeftArrowsRule = 0
 	//{1, REG_DWORD,  NKeyPanel,L"ShowHidden",&Opt.ShowHidden,1, 0},
+	defaultOptions.ShowHidden = 1
 	//{1, REG_DWORD,  NKeyPanel,L"Highlight",&Opt.Highlight,1, 0},
+	defaultOptions.Highlight = 1
 	//{1, REG_DWORD,  NKeyPanel,L"SortFolderExt",&Opt.SortFolderExt,0, 0},
+	defaultOptions.SortFolderExt = 0
 	//{1, REG_DWORD,  NKeyPanel,L"SelectFolders",&Opt.SelectFolders,0, 0},
+	defaultOptions.SelectFolders = 0
 	//{1, REG_DWORD,  NKeyPanel,L"ReverseSort",&Opt.ReverseSort,1, 0},
+	defaultOptions.ReverseSort = 1
 	//{0, REG_DWORD,  NKeyPanel,L"RightClickRule",&Opt.PanelRightClickRule,2, 0},
+	defaultOptions.PanelRightClickRule = 2
 	//{0, REG_DWORD,  NKeyPanel,L"CtrlFRule",&Opt.PanelCtrlFRule,1, 0},
+	defaultOptions.PanelCtrlFRule = 1
 	//{0, REG_DWORD,  NKeyPanel,L"CtrlAltShiftRule",&Opt.PanelCtrlAltShiftRule,0, 0},
+	defaultOptions.PanelCtrlAltShiftRule = 0
 	//{0, REG_DWORD,  NKeyPanel,L"RememberLogicalDrives",&Opt.RememberLogicalDrives, 0, 0},
+	defaultOptions.RememberLogicalDrives = 0
 	//{1, REG_DWORD,  NKeyPanel,L"AutoUpdateLimit",&Opt.AutoUpdateLimit, 0, 0},
+	defaultOptions.AutoUpdateLimit = 0
 	//
 	//{1, REG_DWORD,  NKeyPanelLeft,L"Type",&Opt.LeftPanel.Type,0, 0},
 	//{1, REG_DWORD,  NKeyPanelLeft,L"Visible",&Opt.LeftPanel.Visible,1, 0},
@@ -953,10 +1059,28 @@ func DefaultOptions() *Options {
 	//{1, REG_DWORD,  NKeyPanelLeft,L"SortGroups",&Opt.LeftPanel.SortGroups,0, 0},
 	//{1, REG_DWORD,  NKeyPanelLeft,L"NumericSort",&Opt.LeftPanel.NumericSort,0, 0},
 	//{1, REG_DWORD,  NKeyPanelLeft,L"CaseSensitiveSort",&Opt.LeftPanel.CaseSensitiveSort,0, 0},
-	//{1, REG_SZ,     NKeyPanelLeft,L"Folder",&Opt.strLeftFolder, 0, L""},
-	//{1, REG_SZ,     NKeyPanelLeft,L"CurFile",&Opt.strLeftCurFile, 0, L""},
-	//{1, REG_DWORD,  NKeyPanelLeft,L"SelectedFirst",&Opt.LeftSelectedFirst,0,0},
 	//{1, REG_DWORD,  NKeyPanelLeft,L"DirectoriesFirst",&Opt.LeftPanel.DirectoriesFirst,1,0},
+	defaultOptions.LeftPanel = PanelOptions{
+		Type:              0,
+		Visible:           1,
+		Focus:             1,
+		ViewMode:          2,
+		SortMode:          1,
+		SortOrder:         1,
+		SortGroups:        0,
+		NumericSort:       0,
+		CaseSensitiveSort: 0,
+		DirectoriesFirst:  1,
+
+	}
+
+	//{1, REG_SZ,     NKeyPanelLeft,L"Folder",&Opt.strLeftFolder, 0, L""},
+	defaultOptions.strLeftFolder = ""
+	//{1, REG_SZ,     NKeyPanelLeft,L"CurFile",&Opt.strLeftCurFile, 0, L""},
+	defaultOptions.strLeftCurFile = ""
+	//{1, REG_DWORD,  NKeyPanelLeft,L"SelectedFirst",&Opt.LeftSelectedFirst,0,0},
+	defaultOptions.LeftSelectedFirst = 0
+
 	//
 	//{1, REG_DWORD,  NKeyPanelRight,L"Type",&Opt.RightPanel.Type,0, 0},
 	//{1, REG_DWORD,  NKeyPanelRight,L"Visible",&Opt.RightPanel.Visible,1, 0},
@@ -967,24 +1091,55 @@ func DefaultOptions() *Options {
 	//{1, REG_DWORD,  NKeyPanelRight,L"SortGroups",&Opt.RightPanel.SortGroups,0, 0},
 	//{1, REG_DWORD,  NKeyPanelRight,L"NumericSort",&Opt.RightPanel.NumericSort,0, 0},
 	//{1, REG_DWORD,  NKeyPanelRight,L"CaseSensitiveSort",&Opt.RightPanel.CaseSensitiveSort,0, 0},
-	//{1, REG_SZ,     NKeyPanelRight,L"Folder",&Opt.strRightFolder, 0,L""},
-	//{1, REG_SZ,     NKeyPanelRight,L"CurFile",&Opt.strRightCurFile, 0,L""},
-	//{1, REG_DWORD,  NKeyPanelRight,L"SelectedFirst",&Opt.RightSelectedFirst,0, 0},
 	//{1, REG_DWORD,  NKeyPanelRight,L"DirectoriesFirst",&Opt.RightPanel.DirectoriesFirst,1,0},
+
+	defaultOptions.RightPanel = PanelOptions{
+		Type:              0,
+		Visible:           1,
+		Focus:             0,
+		ViewMode:          2,
+		SortMode:          1,
+		SortOrder:         1,
+		SortGroups:        0,
+		NumericSort:       0,
+		CaseSensitiveSort: 0,
+		DirectoriesFirst:  1,
+
+	}
+
+	//{1, REG_SZ,     NKeyPanelRight,L"Folder",&Opt.strRightFolder, 0,L""},
+	defaultOptions.strRightFolder = ""
+	//{1, REG_SZ,     NKeyPanelRight,L"CurFile",&Opt.strRightCurFile, 0,L""},
+	defaultOptions.strRightCurFile = ""
+	//{1, REG_DWORD,  NKeyPanelRight,L"SelectedFirst",&Opt.RightSelectedFirst,0, 0},
+	defaultOptions.RightSelectedFirst = 0
+
 	//
 	//{1, REG_DWORD,  NKeyPanelLayout,L"ColumnTitles",&Opt.ShowColumnTitles,1, 0},
+	defaultOptions.ShowColumnTitles = 1
 	//{1, REG_DWORD,  NKeyPanelLayout,L"StatusLine",&Opt.ShowPanelStatus,1, 0},
+	defaultOptions.ShowPanelStatus = 1
 	//{1, REG_DWORD,  NKeyPanelLayout,L"TotalInfo",&Opt.ShowPanelTotals,1, 0},
+	defaultOptions.ShowPanelTotals = 1
 	//{1, REG_DWORD,  NKeyPanelLayout,L"FreeInfo",&Opt.ShowPanelFree,0, 0},
+	defaultOptions.ShowPanelFree = 0
 	//{1, REG_DWORD,  NKeyPanelLayout,L"Scrollbar",&Opt.ShowPanelScrollbar,0, 0},
+	defaultOptions.ShowPanelScrollbar = 0
 	//{0, REG_DWORD,  NKeyPanelLayout,L"ScrollbarMenu",&Opt.ShowMenuScrollbar,1, 0},
+	defaultOptions.ShowMenuScrollbar = 1
 	//{1, REG_DWORD,  NKeyPanelLayout,L"ScreensNumber",&Opt.ShowScreensNumber,1, 0},
+	defaultOptions.ShowScreensNumber = 1
 	//{1, REG_DWORD,  NKeyPanelLayout,L"SortMode",&Opt.ShowSortMode,1, 0},
+	defaultOptions.ShowSortMode = 1
 	//
 	//{1, REG_DWORD,  NKeyLayout,L"LeftHeightDecrement",&Opt.LeftHeightDecrement,0, 0},
+	defaultOptions.LeftHeightDecrement = 0
 	//{1, REG_DWORD,  NKeyLayout,L"RightHeightDecrement",&Opt.RightHeightDecrement,0, 0},
+	defaultOptions.RightHeightDecrement = 0
 	//{1, REG_DWORD,  NKeyLayout,L"WidthDecrement",&Opt.WidthDecrement,0, 0},
+	defaultOptions.WidthDecrement = 0
 	//{1, REG_DWORD,  NKeyLayout,L"FullscreenHelp",&Opt.FullScreenHelp,0, 0},
+	defaultOptions.FullScreenHelp = 0
 	//
 	//{1, REG_SZ,     NKeyDescriptions,L"ListNames",&Opt.Diz.strListNames, 0, L"Descript.ion,Files.bbs"},
 	//{1, REG_DWORD,  NKeyDescriptions,L"UpdateMode",&Opt.Diz.UpdateMode,DIZ_UPDATE_IF_DISPLAYED, 0},
@@ -993,25 +1148,55 @@ func DefaultOptions() *Options {
 	//{1, REG_DWORD,  NKeyDescriptions,L"StartPos",&Opt.Diz.StartPos,0, 0},
 	//{1, REG_DWORD,  NKeyDescriptions,L"AnsiByDefault",&Opt.Diz.AnsiByDefault,0, 0},
 	//{1, REG_DWORD,  NKeyDescriptions,L"SaveInUTF",&Opt.Diz.SaveInUTF,0, 0},
+	defaultOptions.Diz = DizOptions{
+		strListNames:  "Descript.ion,Files.bbs",
+		UpdateMode:    DIZ_UPDATE_IF_DISPLAYED,
+		ROUpdate:      0,
+		SetHidden:     1,
+		StartPos:      0,
+		AnsiByDefault: 0,
+		SaveInUTF:     0,
+	}
+
 	//
 	//{0, REG_DWORD,  NKeyKeyMacros,L"MacroReuseRules",&Opt.Macro.MacroReuseRules,0, 0},
 	//{0, REG_SZ,     NKeyKeyMacros,L"DateFormat",&Opt.Macro.strDateFormat, 0, L"%a %b %d %H:%M:%S %Z %Y"},
 	//{0, REG_SZ,     NKeyKeyMacros,L"CONVFMT",&Opt.Macro.strMacroCONVFMT, 0, L"%.6g"},
 	//{0, REG_DWORD,  NKeyKeyMacros,L"CallPluginRules",&Opt.Macro.CallPluginRules,0, 0},
+	defaultOptions.Macro = MacroOptions{
+		MacroReuseRules: 0,
+		strDateFormat:   "%a %b %d %H:%M:%S %Z %Y",
+		strMacroCONVFMT: "%.6g",
+		CallPluginRules: 0,
+	}
 	//
 	//{0, REG_DWORD,  NKeyPolicies,L"ShowHiddenDrives",&Opt.Policies.ShowHiddenDrives,1, 0},
 	//{0, REG_DWORD,  NKeyPolicies,L"DisabledOptions",&Opt.Policies.DisabledOptions,0, 0},
+	defaultOptions.Policies = PoliciesOptions{
+		ShowHiddenDrives: 1,
+		DisabledOptions:  0,
+	}
 	//
 	//
 	//{0, REG_DWORD,  NKeySystem,L"ExcludeCmdHistory",&Opt.ExcludeCmdHistory,0, 0}, //AN
+	defaultOptions.ExcludeCmdHistory = 0
 	//
 	//{1, REG_DWORD,  NKeyCodePages,L"CPMenuMode",&Opt.CPMenuMode,0,0},
+	defaultOptions.CPMenuMode = 0
 	//
 	//{1, REG_SZ,     NKeySystem,L"FolderInfo",&Opt.InfoPanel.strFolderInfoFiles, 0, L"DirInfo,File_Id.diz,Descript.ion,ReadMe.*,Read.Me"},
+	defaultOptions.InfoPanel = InfoPanelOptions{
+		strFolderInfoFiles: "DirInfo,File_Id.diz,Descript.ion,ReadMe.*,Read.Me",
+	}
 	//
 	//{1, REG_DWORD,  NKeyVMenu,L"LBtnClick",&Opt.VMenu.LBtnClick, VMENUCLICK_CANCEL, 0},
 	//{1, REG_DWORD,  NKeyVMenu,L"RBtnClick",&Opt.VMenu.RBtnClick, VMENUCLICK_CANCEL, 0},
 	//{1, REG_DWORD,  NKeyVMenu,L"MBtnClick",&Opt.VMenu.MBtnClick, VMENUCLICK_APPLY, 0},
+	defaultOptions.VMenu = VMenuOptions{
+		LBtnClick: VMENUCLICK_CANCEL,
+		RBtnClick: VMENUCLICK_CANCEL,
+		MBtnClick: VMENUCLICK_APPLY,
+	}
 
 	return &defaultOptions
 }

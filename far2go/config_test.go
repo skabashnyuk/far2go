@@ -22,8 +22,9 @@ func TestConfig(t *testing.T) {
 	//}
 }
 
-func TestReadConfig(t *testing.T) {
+func TestReadWriteConfig(t *testing.T) {
 	ReadConfig()
+	SaveConfig()
 
 }
 
