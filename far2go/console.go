@@ -142,7 +142,7 @@ func SetActiveScreenBuffer(consoleOutput *os.File) (error) {
 	return errors.New("NotImplemented")
 }
 
-func ClearExtraRegions(color PaletteColors) (error) {
+func ClearExtraRegions(color PaletteColor) (error) {
 	return errors.New("NotImplemented")
 }
 

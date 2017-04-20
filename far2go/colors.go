@@ -45,10 +45,10 @@ const (
 	B_MASK               = B_WHITE
 )
 
-type PaletteColors uint
+type PaletteColor uint
 
 const (
-	COL_FIRSTPALETTECOLOR     PaletteColors = iota
+	COL_FIRSTPALETTECOLOR     PaletteColor = iota
 	COL_MENUTEXT
 	COL_MENUSELECTEDTEXT
 	COL_MENUHIGHLIGHT
