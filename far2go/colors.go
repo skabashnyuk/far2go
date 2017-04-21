@@ -45,7 +45,7 @@ const (
 	B_MASK               = B_WHITE
 )
 
-type PaletteColor uint
+type PaletteColor int
 
 const (
 	COL_FIRSTPALETTECOLOR     PaletteColor = iota
