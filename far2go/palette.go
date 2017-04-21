@@ -1,11 +1,8 @@
 package far2go
 
-type PaletteType map[PaletteColor]uint
+import "errors"
 
-func (Obj *PaletteType) FarColorToReal(FarColor PaletteColor) (uint, bool) {
-	i, ok := (*Obj)[FarColor]
-	return i, ok
-}
+type PaletteType map[PaletteColor]uint
 
 var DefaultPalette = PaletteType{
 	COL_MENUTEXT:              F_WHITE | B_CYAN,
@@ -359,4 +356,23 @@ var BlackPalette = PaletteType{
 	COL_WARNDIALOGSELECTEDDEFAULTBUTTON:          F_LIGHTGRAY | B_BLACK,
 	COL_WARNDIALOGHIGHLIGHTDEFAULTBUTTON:         F_WHITE | B_LIGHTGRAY,
 	COL_WARNDIALOGHIGHLIGHTSELECTEDDEFAULTBUTTON: F_WHITE | B_BLACK,
+}
+
+func (Obj *PaletteType) FarColorToReal(FarColor PaletteColor) (uint, bool) {
+	i, ok := (*Obj)[FarColor]
+	return i, ok
+}
+
+func PaletteForName(PaletteName string) (PaletteType, error) {
+	switch PaletteName {
+	case "default":
+		fallthrough
+	case "":
+		return DefaultPalette, nil
+	case "black":
+		return BlackPalette, nil
+	default:
+		return nil, errors.New("Unknown palette " + PaletteName)
+
+	}
 }

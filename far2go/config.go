@@ -473,24 +473,28 @@ type Options struct {
 	ShowTimeoutDACLFiles    uint64
 	DelThreadPriority       int
 
-	LoadPlug       LoadPluginsOptions
-	Dialogs        DialogsOptions
-	VMenu          VMenuOptions
-	CmdLine        CommandLineOptions
-	Policies       PoliciesOptions
-	Nowell         NowellOptions
-	ScrSize        ScreenSizes
-	Macro          MacroOptions
-	FindCodePage   int
-	Tree           TreeOptions
-	InfoPanel      InfoPanelOptions
-	CPMenuMode     uint64
-	IsUserAdmin    bool
-	strTitleAddons string
-	WindowMode     bool
+	LoadPlug                LoadPluginsOptions
+	Dialogs                 DialogsOptions
+	VMenu                   VMenuOptions
+	CmdLine                 CommandLineOptions
+	Policies                PoliciesOptions
+	Nowell                  NowellOptions
+	ScrSize                 ScreenSizes
+	Macro                   MacroOptions
+	FindCodePage            int
+	Tree                    TreeOptions
+	InfoPanel               InfoPanelOptions
+	CPMenuMode              uint64
+	IsUserAdmin             bool
+	strTitleAddons          string
+	WindowMode              bool
+	KeyNameConsoleDetachKey string
+	CurrentPalette          PaletteType `json:"-"`
+	PaletteName             string `json:"palette,omitempty"`
 }
 
 var Opt Options
+
 
 func ReadConfig() {
 
@@ -506,6 +510,13 @@ func ReadConfig() {
 		if err != nil { // Handle errors reading the config file
 			panic(fmt.Errorf("Fatal to Unmarshal: %s \n", err))
 		}
+		var palette, err2 = PaletteForName(Opt.PaletteName)
+		if err2 != nil { // Handle errors reading the config file
+			panic(fmt.Errorf("Not able to find palette: %s \n", err))
+		}
+		Opt.CurrentPalette = palette
+
+
 	} else {
 		switch  err.(type) {
 		case viper.ConfigFileNotFoundError:
@@ -555,13 +566,8 @@ func SaveConfig() {
 func DefaultOptions() *Options {
 	var defaultOptions = Options{}
 
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//{1, REG_BINARY, NKeyColors, L"CurrentPalette",(char*)Palette,(DWORD)SizeArrayPalette,(wchar_t*)DefaultPalette},
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	defaultOptions.CurrentPalette = DefaultPalette
+
 	//
 	//{1, REG_DWORD,  NKeyScreen, L"Clock", &Opt.Clock, 1, 0},
 	defaultOptions.Clock = 1
@@ -872,13 +878,9 @@ func DefaultOptions() *Options {
 	defaultOptions.SetAttrFolderRules = 1
 	//{0, REG_DWORD,  NKeySystem,L"MaxPositionCache",&Opt.MaxPositionCache,MAX_POSITIONS, 0},
 	defaultOptions.MaxPositionCache = MAX_POSITIONS
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 	//{0, REG_SZ,     NKeySystem,L"ConsoleDetachKey", &strKeyNameConsoleDetachKey, 0, L"CtrlAltTab"},
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	defaultOptions.KeyNameConsoleDetachKey = "CtrlAltTab"
 
 	//{0, REG_DWORD,  NKeySystem,L"SilentLoadPlugin",  &Opt.LoadPlug.SilentLoadPlugin, 0, 0},
 	//{1, REG_DWORD,  NKeySystem,L"OEMPluginsSupport",  &Opt.LoadPlug.OEMPluginsSupport, 1, 0},
