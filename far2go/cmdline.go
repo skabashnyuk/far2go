@@ -17,6 +17,10 @@ type CommandLine struct {
 	ppstack           Stack
 }
 
+func newCommandLine() *CommandLine {
+	return &CommandLine{}
+}
+
 func (obj *CommandLine) ProcessKey(key KeyCode) (bool) {
 	return false
 }
@@ -47,7 +51,6 @@ func (obj *CommandLine) GetString() (string) {
 	return obj.CmdStr.GetString()
 }
 
-
 //
 //void GetString(FARString &strStr) { CmdStr.GetString(strStr); };
 //int GetLength() { return CmdStr.GetLength(); };
@@ -71,6 +74,13 @@ func (obj *CommandLine) GetString() (string) {
 //void Select(int Start, int End) { CmdStr.Select(Start,End); };
 //
 //void SaveBackground(int X1,int Y1,int X2,int Y2);
+func (obj *CommandLine) SaveBackground(X1, Y1, X2, Y2 int) {
+
+}
+func (obj *CommandLine) SaveBackground2() {
+
+}
+
 //void SaveBackground();
 //void ShowBackground();
 //void CorrectRealScreenCoord();

@@ -352,8 +352,8 @@ type Options struct {
 	UseRegisteredTypes       int
 	ViewerEditorClock        int
 	OnlyEditorViewerUsed     int
-	SaveViewHistory          int
-	ViewHistoryCount         int
+	SaveViewHistory          bool
+	ViewHistoryCount         uint
 	strExternalEditor        string
 	EdOpt                    EditorOptions
 	strExternalViewer        string
@@ -365,11 +365,11 @@ type Options struct {
 	SetupArgv                int
 	ChangeDriveMode          int
 	ChangeDriveDisconnetMode int
-	SaveHistory              int
-	HistoryCount             int
-	SaveFoldersHistory       int
+	SaveHistory              bool
+	HistoryCount             uint
+	SaveFoldersHistory       bool
 	SavePluginFoldersHistory int
-	FoldersHistoryCount      int
+	FoldersHistoryCount      uint
 	DialogsHistoryCount      int
 	FindOpt                  FindFileOptions
 	LeftHeightDecrement      int
@@ -495,7 +495,6 @@ type Options struct {
 
 var Opt Options
 
-
 func ReadConfig() {
 
 	viper.SetConfigType("json")
@@ -516,7 +515,6 @@ func ReadConfig() {
 		}
 		Opt.CurrentPalette = palette
 
-
 	} else {
 		switch  err.(type) {
 		case viper.ConfigFileNotFoundError:
@@ -529,9 +527,6 @@ func ReadConfig() {
 		}
 	}
 
-}
-func init() {
-	ReadConfig()
 }
 
 func SaveConfig() {
@@ -796,13 +791,13 @@ func DefaultOptions() *Options {
 	defaultOptions.DialogsHistoryCount = 512
 	//
 	//{1, REG_DWORD,  NKeySystem,L"SaveHistory",&Opt.SaveHistory,1, 0},
-	defaultOptions.SaveHistory = 1
+	defaultOptions.SaveHistory = true
 	//{1, REG_DWORD,  NKeySystem,L"SaveFoldersHistory",&Opt.SaveFoldersHistory,1, 0},
-	defaultOptions.SaveFoldersHistory = 1
+	defaultOptions.SaveFoldersHistory = true
 	//{0, REG_DWORD,  NKeySystem,L"SavePluginFoldersHistory",&Opt.SavePluginFoldersHistory,0, 0},
 	defaultOptions.SavePluginFoldersHistory = 0
 	//{1, REG_DWORD,  NKeySystem,L"SaveViewHistory",&Opt.SaveViewHistory,1, 0},
-	defaultOptions.SaveViewHistory = 1
+	defaultOptions.SaveViewHistory = true
 	//{1, REG_DWORD,  NKeySystem,L"UseRegisteredTypes",&Opt.UseRegisteredTypes,1, 0},
 	defaultOptions.UseRegisteredTypes = 1
 	//{1, REG_DWORD,  NKeySystem,L"AutoSaveSetup",&Opt.AutoSaveSetup,0, 0},

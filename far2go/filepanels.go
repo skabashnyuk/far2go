@@ -15,6 +15,10 @@ type FilePanels struct {
 	LeftStateBeforeHide, RightStateBeforeHide int
 }
 
+func newFilePanels() *FilePanels {
+	return &FilePanels{}
+}
+
 //void Init();
 //
 //Panel* CreatePanel(int Type);

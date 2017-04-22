@@ -46,7 +46,11 @@ func NewHistory(TypeHistory HistoryType, HistoryCount uint, RegKey string, Enabl
 }
 
 //void AddToHistory(const wchar_t *Str, int Type=0, const wchar_t *Prefix=nullptr, bool SaveForbid=false);
-//bool ReadHistory(bool bOnlyLines=false);
+
+func (obj *History) ReadHistory(bOnlyLines bool) bool {
+	return false
+}
+
 //bool SaveHistory();
 //static bool ReadLastItem(const wchar_t *RegKey, FARString &strStr);
 //int  Select(const wchar_t *Title, const wchar_t *HelpTopic, FARString &strStr, int &Type);
@@ -55,5 +59,9 @@ func NewHistory(TypeHistory HistoryType, HistoryCount uint, RegKey string, Enabl
 //void GetNext(FARString &strStr);
 //bool GetSimilar(FARString &strStr, int LastCmdPartLength, bool bAppend=false);
 //bool GetAllSimilar(VMenu &HistoryMenu,const wchar_t *Str);
-//void SetAddMode(bool EnableAdd, int RemoveDups, bool KeepSelectedPos);
+
+func (obj *History) SetAddMode(EnableAdd bool, RemoveDups int, KeepSelectedPos bool) {
+
+}
+
 //void ResetPosition() { CurrentItem = nullptr; }

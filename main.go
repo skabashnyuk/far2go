@@ -17,6 +17,16 @@ func main() {
 	//log.Panic("I'm bailing.")
 	logrus.Debug("Starting controll object")
 	CtrlObj := far2go.NewControlObject()
-	CtrlObj.CreateFilePanels()
-	CtrlObj.Macro.LoadMacros()
+	//Console.GetTextAttributes(InitAttributes);
+	//SetRealColor(COL_COMMANDLINEUSERSCREEN);
+	CtrlObj.Init()
+	//CtrlObj.CreateFilePanels()
+	//CtrlObj.Macro.LoadMacros()
+	//FrameManager->EnterMainLoop();
+	//SetScreen(0,0,ScrX,ScrY,L' ',COL_COMMANDLINEUSERSCREEN);
+	//Console.SetTextAttributes(InitAttributes);
+	//ScrBuf.ResetShadow();
+	//ScrBuf.Flush();
+	//MoveRealCursor(0,0);
+	//CloseConsole();
 }

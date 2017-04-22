@@ -21,34 +21,65 @@ type ControlObject struct {
 }
 
 func NewControlObject() (*ControlObject) {
+	ReadConfig()
 	controlObject := &ControlObject{
 		fPanels: new(FilePanels),
 		CmdLine: new(CommandLine),
 		CmdHistory: NewHistory(HISTORYTYPE_CMD,
-			512,
+			Opt.HistoryCount,
 			"SavedHistory",
-			true,
+			Opt.SaveHistory,
 			false),
 		FolderHistory: NewHistory(HISTORYTYPE_FOLDER,
-			512,
+			Opt.FoldersHistoryCount,
 			"SavedFolderHistory",
-			true,
+			Opt.SaveFoldersHistory,
 			true),
 		ViewHistory: NewHistory(HISTORYTYPE_VIEW,
-			512,
+			Opt.ViewHistoryCount,
 			"SavedFolderHistory",
-			true,
+			Opt.SaveViewHistory,
 			true),
 
 
 	}
-	//controlObject.
+	controlObject.FolderHistory.SetAddMode(true, 2, true)
+	controlObject.FolderHistory.SetAddMode(true, 1, true)
+
+	if Opt.SaveHistory {
+		controlObject.CmdHistory.ReadHistory(false)
+	}
+
+	if Opt.SaveFoldersHistory {
+		controlObject.FolderHistory.ReadHistory(false)
+	}
+
+	if Opt.SaveViewHistory {
+		controlObject.ViewHistory.ReadHistory(false)
+	}
 	logrus.Debugf("[%p] ControlObject::ControlObject()", controlObject)
 	return controlObject
 }
 
 func (obj *ControlObject) Init() {
+	logrus.Debugf("[%p] ControlObject::Init()", obj)
 
+	//TreeList::ClearCache(0);
+	//FileFilter::InitFilter();
+	//SetColor(COL_COMMANDLINEUSERSCREEN);
+	//GotoXY(0, ScrY-3);
+	//ShowCopyright();
+	//GotoXY(0, ScrY-2);
+	///MoveCursor(0, ScrY-1);
+	obj.fPanels = newFilePanels()
+	obj.CmdLine = newCommandLine()
+	//obj.CmdLine.SaveBackground(0, 0, ScrX, ScrY)
+	//CmdLine- > SaveBackground(0, 0, ScrX, ScrY);
+
+	//this- > MainKeyBar = &(FPanels- > MainKeyBar);
+	//this- > TopMenuBar = &(FPanels- > TopMenuBar);
+	//FPanels- > Init();
+	//FPanels- > SetScreenPosition();
 }
 
 func (obj *ControlObject) Cp() (*FilePanels) {
