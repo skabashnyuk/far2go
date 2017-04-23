@@ -133,13 +133,6 @@ func newConsoleIo() *ConsoleIo {
 }
 
 //void ShowTime(int ShowAlways);
-//
-///*$ 14.02.2001 SKV
-//  Инитить ли палитру default значениями.
-//  По умолчанию - да.
-//  С 0 используется для ConsoleDetach.
-//*/
-
 func (Obj *ConsoleIo) InitConsole() {
 	Obj.InitRecodeOutTable()
 	SetControlHandler(Obj, true)
@@ -148,6 +141,30 @@ func (Obj *ConsoleIo) InitConsole() {
 	Obj.initWindowRect = GetWindowRect()
 	Obj.initialSize = GetSize()
 	Obj.SetFarConsoleMode(false)
+
+	WindowRect := GetWindowRect()
+	Obj.InitSize = Obj.GetVideoMode()
+	if Opt.WindowMode {
+		ResetPosition()
+	} else {
+		if WindowRect.Left > 0 || WindowRect.Top > 0 || WindowRect.Right != Obj.InitSize.X-1 || WindowRect.Bottom != Obj.InitSize.Y-1 {
+			newSize := Coordinate{
+				X: WindowRect.Right - WindowRect.Left + 1,
+				Y: WindowRect.Bottom - WindowRect.Top + 1,
+			}
+			SetSize(newSize)
+			Obj.InitSize = Obj.GetVideoMode()
+
+		}
+	}
+	Obj.CurSize = Obj.GetVideoMode()
+
+	//!!!!!!!!!!!!!!!!!!!!
+	//!!!!!!!!!!!!!!!!!!!!
+	//TODO imeplement  ScrBuf.FillBuf()
+	//ScrBuf.FillBuf()
+	//!!!!!!!!!!!!!!!!!!!!
+	//!!!!!!!!!!!!!!!!!!!!
 
 }
 func (Obj *ConsoleIo) Handle(CtrlType CtrlTypeEvent) {
@@ -183,6 +200,10 @@ func (Obj *ConsoleIo) ChangeConsoleMode(Mode ConsoleMode) {
 //void ChangeVideoMode(int Maximized);
 //void ChangeVideoMode(int NumLines,int NumColumns);
 //void GetVideoMode(COORD& Size);
+func (Obj *ConsoleIo) GetVideoMode() *Coordinate {
+	return nil
+}
+
 //void GenerateWINDOW_BUFFER_SIZE_EVENT(int Sx=-1, int Sy=-1);
 //void SaveConsoleWindowRect();
 //void RestoreConsoleWindowRect();
