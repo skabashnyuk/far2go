@@ -17,6 +17,7 @@ type ControlObject struct {
 	ViewerPosCache *FilePositionCache
 	EditorPosCache *FilePositionCache
 	Macro          *KeyMacro
+	Console        *ConsoleIo
 	//Plugins        PluginManager
 }
 
@@ -40,9 +41,11 @@ func NewControlObject() (*ControlObject) {
 			"SavedFolderHistory",
 			Opt.SaveViewHistory,
 			true),
+		Console: newConsoleIo(),
 
 
 	}
+	controlObject.Console.InitConsole()
 	controlObject.FolderHistory.SetAddMode(true, 2, true)
 	controlObject.FolderHistory.SetAddMode(true, 1, true)
 

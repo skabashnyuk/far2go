@@ -2,7 +2,6 @@ package far2go
 
 import (
 	"os"
-	"errors"
 )
 
 type ConsoleMode uint
@@ -27,7 +26,7 @@ func GetOutputHandle() *os.File {
 	return os.Stdout
 }
 
-func GetErrorHandle() *os.File {
+func GetHandle() *os.File {
 	return os.Stderr
 }
 
@@ -39,119 +38,122 @@ func IsIconic() bool {
 	return false
 }
 
-func GetSize() (*Coordinate, error) {
-	return nil, errors.New("NotImplemented")
+func GetSize() (*Coordinate) {
+	return nil
 }
 
-func SetSize(size Coordinate) error {
-	return errors.New("NotImplemented")
+func SetSize(size Coordinate) {
+
 }
 
-func SetWindowRect(consoleWindow SmallRect) error {
-	return errors.New("NotImplemented")
+func SetWindowRect(consoleWindow SmallRect) {
+
 }
 
-func GetWindowRect() (*SmallRect, error) {
-	return nil, errors.New("NotImplemented")
+func GetWindowRect() (*SmallRect) {
+	return nil
 }
 
-func GetWorkingRect() (*SmallRect, error) {
-	return nil, errors.New("NotImplemented")
+func GetWorkingRect() (*SmallRect) {
+	return nil
 }
 
-func SetTitle(strTitle string) error {
-	return errors.New("NotImplemented")
+func SetTitle(strTitle string) {
 }
 
-func GetTitle() (string, error) {
-	return "", errors.New("NotImplemented")
+func GetTitle() (string) {
+	return ""
 }
-func GetKeyboardLayoutName() (string, error) {
-	return "", errors.New("NotImplemented")
-}
-
-func GetMode(handle *os.File) (*ConsoleMode, error) {
-	return nil, errors.New("NotImplemented")
+func GetKeyboardLayoutName() string {
+	return ""
 }
 
-func SetMode(handle *os.File, mode ConsoleMode) (error) {
-	return errors.New("NotImplemented")
+func SetControlHandler(HandlerRoutine ControlHandler, Add bool) {
+
 }
 
-func PeekInput(buffer *InputRecord, length uint, numberOfEventsRead uint) (error) {
-	return errors.New("NotImplemented")
+func GetMode(handle *os.File) (*ConsoleMode) {
+	return nil
 }
 
-func ReadInput(buffer *InputRecord, length uint, numberOfEventsRead uint) (error) {
-	return errors.New("NotImplemented")
+func SetMode(handle *os.File, mode ConsoleMode) () {
+
 }
 
-func WriteInput(buffer *InputRecord, length uint, numberOfEventsRead uint) (error) {
-	return errors.New("NotImplemented")
+func PeekInput(buffer *InputRecord, length uint, numberOfEventsRead uint) () {
+
 }
 
-func ReadOutput(buffer *CharInfo, bufferSize Coordinate, bufferCoord Coordinate, readRegion *SmallRect) (error) {
-	return errors.New("NotImplemented")
+func ReadInput(buffer *InputRecord, length uint, numberOfEventsRead uint) () {
+
 }
 
-func WriteOutput(buffer *CharInfo, bufferSize Coordinate, bufferCoord Coordinate, readRegion *SmallRect) (error) {
-	return errors.New("NotImplemented")
+func WriteInput(buffer *InputRecord, length uint, numberOfEventsRead uint) () {
+
 }
 
-func Write(buffer string, numberOfCharsToWrite bool) (error) {
-	return errors.New("NotImplemented")
+func ReadOutput(buffer *CharInfo, bufferSize Coordinate, bufferCoord Coordinate, readRegion *SmallRect) () {
+
 }
 
-func GetTextAttributes() (uint, error) {
-	return 0, errors.New("NotImplemented")
+func WriteOutput(buffer *CharInfo, bufferSize Coordinate, bufferCoord Coordinate, readRegion *SmallRect) () {
+
 }
 
-func SetTextAttributes(Attributes uint) (error) {
-	return errors.New("NotImplemented")
+func Write(buffer string, numberOfCharsToWrite bool) () {
+
 }
 
-func GetCursorInfo() (*ConsoleCursorInfo, error) {
-	return nil, errors.New("NotImplemented")
+func GetTextAttributes() (uint) {
+	return 0
 }
 
-func SetCursorInfo(consoleCursorInfo *ConsoleCursorInfo) (error) {
-	return errors.New("NotImplemented")
+func SetTextAttributes(Attributes uint) () {
+
 }
 
-func GetCursorPosition() (*Coordinate, error) {
-	return nil, errors.New("NotImplemented")
+func GetCursorInfo() (*ConsoleCursorInfo) {
+	return nil
 }
 
-func SetCursorPosition(position Coordinate) (error) {
-	return errors.New("NotImplemented")
+func SetCursorInfo(consoleCursorInfo *ConsoleCursorInfo) () {
+
 }
 
-func FlushInputBuffer() (error) {
-	return errors.New("NotImplemented")
+func GetCursorPosition() (*Coordinate) {
+	return nil
 }
 
-func GetNumberOfInputEvents() (uint, error) {
-	return 0, errors.New("NotImplemented")
+func SetCursorPosition(position Coordinate) () {
+
+}
+
+func FlushInputBuffer() () {
+
+}
+
+func GetNumberOfInputEvents() (uint) {
+	return 0
 }
 
 func GetLargestWindowSize() *Coordinate {
 	return nil
 }
 
-func SetActiveScreenBuffer(consoleOutput *os.File) (error) {
-	return errors.New("NotImplemented")
+func SetActiveScreenBuffer(consoleOutput *os.File) () {
+
 }
 
-func ClearExtraRegions(color PaletteColor) (error) {
-	return errors.New("NotImplemented")
+func ClearExtraRegions(color PaletteColor) () {
+
 }
 
-func ScrollWindow(lines int, columns int) (error) {
-	return errors.New("NotImplemented")
+func ScrollWindow(lines int, columns int) () {
+
 }
 
-func ResetPosition() (error) {
-	return errors.New("NotImplemented")
+func ResetPosition() () {
+
 }
 func GetDelta() (int) {
 	return 0

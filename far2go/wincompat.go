@@ -21,3 +21,19 @@ const (
 	FILE_ATTRIBUTE_BROKEN              = 0x00200000
 	FILE_ATTRIBUTE_EXECUTABLE          = 0x00400000
 )
+
+type CtrlTypeEvent uint
+
+const (
+	CTRL_C_EVENT     CtrlTypeEvent = 0
+	CTRL_BREAK_EVENT CtrlTypeEvent = 1
+	CTRL_CLOSE_EVENT CtrlTypeEvent = 2
+	// 3 is reserved!
+	// 4 is reserved!
+	CTRL_LOGOFF_EVENT   CtrlTypeEvent = 5
+	CTRL_SHUTDOWN_EVENT CtrlTypeEvent = 6
+)
+
+type ControlHandler interface {
+	Handle(CtrlType CtrlTypeEvent)
+}

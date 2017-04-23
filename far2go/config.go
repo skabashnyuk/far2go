@@ -320,24 +320,24 @@ type MacroOptions struct {
 }
 
 type Options struct {
-	Clock                      int
-	Mouse                      int
-	ShowKeyBar                 int
-	ScreenSaver                int
-	ScreenSaverTime            int
-	UseVk_oem_x                int
-	InactivityExit             int
-	InactivityExitTime         int
-	ShowHidden                 int
-	Highlight                  int
-	strLeftFolder              string
-	strRightFolder             string
-	strLeftCurFile             string
-	strRightCurFile            string
-	RightSelectedFirst         int
-	LeftSelectedFirst          int
-	SelectFolders              int
-	ReverseSort                int
+	Clock              int
+	Mouse              bool
+	ShowKeyBar         int
+	ScreenSaver        int
+	ScreenSaverTime    int
+	UseVk_oem_x        int
+	InactivityExit     int
+	InactivityExitTime int
+	ShowHidden         int
+	Highlight          int
+	strLeftFolder      string
+	strRightFolder     string
+	strLeftCurFile     string
+	strRightCurFile    string
+	RightSelectedFirst int
+	LeftSelectedFirst  int
+	SelectFolders      int
+	ReverseSort        int
 	SortFolderExt              int
 	DeleteToRecycleBin         int
 	DeleteToRecycleBinKillLink int
@@ -593,7 +593,7 @@ func DefaultOptions() *Options {
 	//
 	//
 	//{1, REG_DWORD,  NKeyInterface, L"Mouse",&Opt.Mouse,1, 0},
-	defaultOptions.Mouse = 1
+	defaultOptions.Mouse = true
 	//{0, REG_DWORD,  NKeyInterface, L"UseVk_oem_x",&Opt.UseVk_oem_x,1, 0},
 	defaultOptions.UseVk_oem_x = 1
 	//{1, REG_DWORD,  NKeyInterface, L"ShowMenuBar",&Opt.ShowMenuBar,0, 0},
