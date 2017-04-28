@@ -37,3 +37,8 @@ const (
 type ControlHandler interface {
 	Handle(CtrlType CtrlTypeEvent)
 }
+
+type CharInfo struct {
+	Char       rune
+	Attributes uint
+}

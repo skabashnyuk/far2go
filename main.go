@@ -7,6 +7,7 @@ import (
 
 func main() {
 	logrus.SetLevel(logrus.DebugLevel)
+	far2go.Main()
 	//log.Debug("Useful debugging information.")
 	//log.Info("Something noteworthy happened!")
 	//log.Warn("You should probably take a look at this.")
@@ -15,11 +16,11 @@ func main() {
 	//log.Fatal("Bye.")
 	//// Calls panic() after logging
 	//log.Panic("I'm bailing.")
-	logrus.Debug("Starting controll object")
-	CtrlObj := far2go.NewControlObject()
+	//logrus.Debug("Starting controll object")
+	//CtrlObj := far2go.NewControlObject()
 	//Console.GetTextAttributes(InitAttributes);
 	//SetRealColor(COL_COMMANDLINEUSERSCREEN);
-	CtrlObj.Init()
+	//CtrlObj.Init()
 	//CtrlObj.CreateFilePanels()
 	//CtrlObj.Macro.LoadMacros()
 	//FrameManager->EnterMainLoop();

@@ -10,6 +10,7 @@ type ConsoleIo struct {
 	initTitle          string
 	initWindowRect     *SmallRect
 	initialSize        *Coordinate
+	screenBuf          *ScreenBuf
 }
 
 type BoxType uint
@@ -77,8 +78,9 @@ const (
 
 func newConsoleIo() *ConsoleIo {
 	return &ConsoleIo{
-		PrevScrX: -1,
-		PrevScrY: -1,
+		PrevScrX:  -1,
+		PrevScrY:  -1,
+		screenBuf: NewScreenBuf(),
 		BoxSymbols: []rune{
 			'░',
 			'▒',
@@ -158,13 +160,7 @@ func (Obj *ConsoleIo) InitConsole() {
 		}
 	}
 	Obj.CurSize = Obj.GetVideoMode()
-
-	//!!!!!!!!!!!!!!!!!!!!
-	//!!!!!!!!!!!!!!!!!!!!
-	//TODO imeplement  ScrBuf.FillBuf()
-	//ScrBuf.FillBuf()
-	//!!!!!!!!!!!!!!!!!!!!
-	//!!!!!!!!!!!!!!!!!!!!
+	Obj.screenBuf.FillBuf()
 
 }
 func (Obj *ConsoleIo) Handle(CtrlType CtrlTypeEvent) {

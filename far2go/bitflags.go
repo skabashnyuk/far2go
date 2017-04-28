@@ -4,6 +4,10 @@ type BitFlags struct {
 	flags uint32
 }
 
+func NewBitFlags(newFlags uint32) *BitFlags {
+	return &BitFlags{flags: newFlags}
+}
+
 func (flags *BitFlags) Set(newFlags uint32) uint32 {
 	flags.flags |= newFlags
 	return flags.flags

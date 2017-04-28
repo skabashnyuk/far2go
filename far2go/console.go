@@ -91,8 +91,8 @@ func ReadInput(buffer *InputRecord, length uint, numberOfEventsRead uint) () {
 func WriteInput(buffer *InputRecord, length uint, numberOfEventsRead uint) () {
 
 }
-
-func ReadOutput(buffer *CharInfo, bufferSize Coordinate, bufferCoord Coordinate, readRegion *SmallRect) () {
+//TODO impement ReadOutput
+func ReadOutput(buffer []CharInfo, bufferSize Coordinate, bufferCoord Coordinate, readRegion SmallRect) () {
 
 }
 

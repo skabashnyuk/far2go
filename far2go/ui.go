@@ -79,10 +79,7 @@ type InputRecord struct {
 	Event
 }
 
-type CharInfo struct {
-	Char       rune
-	Attributes uint
-}
+
 type ConsoleCursorInfo struct {
 	Size    uint
 	Visible bool
