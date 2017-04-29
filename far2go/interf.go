@@ -131,8 +131,20 @@ func newConsoleIo() *ConsoleIo {
 			'▐',
 			'▀',
 		},
-	}z
-}zindowRect()
+	}
+}
+
+//void ShowTime(int ShowAlways);
+func (Obj *ConsoleIo) InitConsole() {
+	Obj.InitRecodeOutTable()
+	SetControlHandler(Obj, true)
+	Obj.InitialConsoleMode = GetMode(GetInputHandle())
+	Obj.initTitle = GetTitle()
+	Obj.initWindowRect = GetWindowRect()
+	Obj.initialSize = GetSize()
+	Obj.SetFarConsoleMode(false)
+
+	WindowRect := GetWindowRect()
 	Obj.InitSize = Obj.GetVideoMode()
 	if Opt.WindowMode {
 		ResetPosition()
