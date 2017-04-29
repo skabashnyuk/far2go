@@ -2,6 +2,8 @@ package far2go
 
 import (
 	"os"
+	"github.com/sirupsen/logrus"
+	"github.com/nsf/termbox-go"
 )
 
 type ConsoleMode uint
@@ -17,6 +19,15 @@ const (
 	ENABLE_EXTENDED_FLAGS  ConsoleMode = 0x0080
 	ENABLE_AUTO_POSITION   ConsoleMode = 0x0100
 )
+
+func init() {
+	err := termbox.Init()
+	if err != nil {
+		logrus.Panic(err)
+	}
+	defer termbox.Close()
+	//termbox.SetInputMode(termbox.InputEsc | termbox.InputMouse)
+}
 
 func GetInputHandle() *os.File {
 	return os.Stdin
@@ -39,7 +50,12 @@ func IsIconic() bool {
 }
 
 func GetSize() (*Coordinate) {
-	return nil
+	x, y := termbox.Size()
+	logrus.WithFields(logrus.Fields{
+		"X": x,
+		"Y": y,
+	}).Info("Console size")
+	return &Coordinate{uint(x), uint(y)}
 }
 
 func SetSize(size Coordinate) {
@@ -91,6 +107,7 @@ func ReadInput(buffer *InputRecord, length uint, numberOfEventsRead uint) () {
 func WriteInput(buffer *InputRecord, length uint, numberOfEventsRead uint) () {
 
 }
+
 //TODO impement ReadOutput
 func ReadOutput(buffer []CharInfo, bufferSize Coordinate, bufferCoord Coordinate, readRegion SmallRect) () {
 

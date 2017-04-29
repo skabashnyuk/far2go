@@ -5,6 +5,7 @@ type Coordinate struct {
 	Y uint
 }
 
+
 type SmallRect struct {
 	Left, Top, Right, Bottom uint
 }

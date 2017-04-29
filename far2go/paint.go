@@ -2,7 +2,7 @@ package far2go
 
 import (
 	"github.com/nsf/termbox-go"
-	 "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 var curCol = 0

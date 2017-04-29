@@ -1,33 +1,50 @@
 package main
 
 import (
-	"github.com/skabashnyuk/far2go/far2go"
+	"github.com/nsf/termbox-go"
 	"github.com/sirupsen/logrus"
 )
 
+func draw_all() {
+	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
+	termbox.SetCell(1, 1, '@', termbox.ColorBlack|termbox.AttrBold, termbox.ColorRed)
+	termbox.Flush()
+
+}
 func main() {
-	logrus.SetLevel(logrus.DebugLevel)
-	far2go.Main()
-	//log.Debug("Useful debugging information.")
-	//log.Info("Something noteworthy happened!")
-	//log.Warn("You should probably take a look at this.")
-	//log.Error("Something failed but I'm not quitting.")
-	//// Calls os.Exit(1) after logging
-	//log.Fatal("Bye.")
-	//// Calls panic() after logging
-	//log.Panic("I'm bailing.")
-	//logrus.Debug("Starting controll object")
-	//CtrlObj := far2go.NewControlObject()
-	//Console.GetTextAttributes(InitAttributes);
-	//SetRealColor(COL_COMMANDLINEUSERSCREEN);
-	//CtrlObj.Init()
-	//CtrlObj.CreateFilePanels()
-	//CtrlObj.Macro.LoadMacros()
-	//FrameManager->EnterMainLoop();
-	//SetScreen(0,0,ScrX,ScrY,L' ',COL_COMMANDLINEUSERSCREEN);
-	//Console.SetTextAttributes(InitAttributes);
-	//ScrBuf.ResetShadow();
-	//ScrBuf.Flush();
-	//MoveRealCursor(0,0);
-	//CloseConsole();
+	err := termbox.Init()
+	if err != nil {
+		panic(err)
+
+	}
+	defer termbox.Close()
+	draw_all()
+	x, y := termbox.Size()
+	logrus.WithFields(logrus.Fields{
+		"X": x,
+		"Y": y,
+	}).Info("Console size")
+	logrus.Info("Start loop")
+	//loop:
+	for {
+		x, y := termbox.Size()
+		logrus.WithFields(logrus.Fields{
+			"X": x,
+			"Y": y,
+		}).Info("Console size")
+		logrus.Info("Start loop")
+		//		switch ev := termbox.PollEvent(); ev.Type {
+		//case termbox.EventKey:
+		//	logrus.Info("EventKey event")
+		//	switch ev.Key {
+		//	case termbox.KeyEsc:
+		//		logrus.Info("KeyEsc event")
+		//		//				break loop
+		//	}
+		//case termbox.EventResize:
+		//	logrus.Info("Resize event")
+		//	draw_all()
+		//}
+	}
+
 }
